@@ -1,9 +1,6 @@
-// importing the useState hook that has a initial value and then it updates it
 import { useState } from "react";
 
-// this function or componenet is equal to the intial value of 
-// formdata which is an object and then it gets updated to setFormData
-// im not sure what the point of notes and setNotes is doing I know im passing it from the app.jsx component
+
 const NoteForm = ({notes, setNotes}) => {
     const [formData, setFormData] = useState({
         title: '',
@@ -12,14 +9,9 @@ const NoteForm = ({notes, setNotes}) => {
         description: '',
 
     });
+    const [isFormVisible, setisFormVisible] = useState(false)
 
-    // this function handles the submission by checking to see if the the description and title fields are empty
-    // if they are then the function will stop and not continue with the rest of the instructions.
-    // if the funciton keeps going because the strings are not empty then setNotes initial value becomes setNotes
-    // and the updated value becomes a copy of the intial value through ...notes. it becomes a copy
-    // so the original data isnt changed and has its intigrity. thats important because the app continously
-    // references that data so if it chnaged the app may crash
-    // then setFromData reset the values after those processes are complete
+
     const handleSubmission = (e) => {
         e.preventDefault();
         if(!formData.title || !formData.description) return; // Checks to see if its empty
@@ -32,26 +24,25 @@ const NoteForm = ({notes, setNotes}) => {
         description: '',
         })
     }
-//this function coordinates and updates the key value paits with ...formData which creates a copy of the oringal
-// amd assings the respective key  to its value per the form. the app knows which value belongs to what key bacause 
-// of the name property inside input or select 
+
     const handleChange = (e) => {
           
        setFormData({
         ...formData, [e.target.name]: e.target.value,
        })
     }
-    
 
     return (
+<>
+         <button
+    onClick={() => setisFormVisible(!isFormVisible)}
+    className='w-full bg-gray-100 border border-gray-300 text-purple-800 py-2 
+    rounded-lg cursor-pointer hover:bg-purple-200 hover:border-purple-300 transition mb-4'
+  >
+    {isFormVisible ? 'Hide Form ✖️' : 'Add New Note ➕'}
+  </button>
 
-        // when this form is submitted it calls the submission function above
-        // the value is assined to the key of title since its hardcoded here and the value is the input 
-        // formData.title
-        // the Event onChnage triggers when there is any change in the input field
-        // this process repeats for each div assigning th proper keys and values
-
-<form 
+  {isFormVisible && (<form 
 onSubmit={handleSubmission}
 className="mb-6">
     <div className="mb-4">
@@ -102,10 +93,13 @@ className="mb-6">
         value={formData.description}
         onChange={handleChange} > </textarea>
     </div>
-{/* submit button for the form */}
+
     <button type='submit' className="w-full bg-purple-500 text-white py-2 rounded-lg cursor-pointer hover:bg-purple-600">Add Note</button>
 
-</form>
+</form>)}
+
+
+</>
 
     )
 }
