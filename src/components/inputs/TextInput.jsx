@@ -1,8 +1,9 @@
 const TextInput = ({label, name, value, onChange, required = false}) => {
     return ( 
          <div className="mb-4">
-        <label htmlFor={label} className="block font-semibold"> {label}</label>
+        <label htmlFor={name} className="block font-semibold"> {label}</label>
         <input 
+        id={name}
         name={name}
         type="text"
         className="w-full p-2 border rounded-lg"
@@ -14,3 +15,4 @@ const TextInput = ({label, name, value, onChange, required = false}) => {
 }
  
 export default TextInput;
+
