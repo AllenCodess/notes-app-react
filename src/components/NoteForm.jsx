@@ -1,8 +1,8 @@
+
 import { useState } from "react";
 import TextInput from "./inputs/TextInput";
 import SelectInput from "./inputs/SelectInput";
 import TextAreaInput from "./inputs/TextAreaInput";
-
 
 const NoteForm = ({notes, setNotes}) => {
     const [formData, setFormData] = useState({
@@ -14,10 +14,9 @@ const NoteForm = ({notes, setNotes}) => {
     });
     const [isFormVisible, setisFormVisible] = useState(false)
 
-
     const handleSubmission = (e) => {
         e.preventDefault();
-        if(!formData.title || !formData.description) return; // Checks to see if its empty
+        if(!formData.title || !formData.description) return; 
         const newNote = { id: Date.now(), ...formData };
         setNotes([newNote, ...notes]);
         setFormData({
@@ -48,7 +47,6 @@ const NoteForm = ({notes, setNotes}) => {
   {isFormVisible && (<form 
 onSubmit={handleSubmission}
 className="mb-6">
-
 
    <TextInput 
    label={'Title'}
